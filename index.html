@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASTRA-MED | NASA HRP Çoklu Mürettebat Güvenli Biyo-Sağlık Sistemi</title>
+    <title>ASTRA-MED | NASA HRP Multi-Crew Bio-Health System v7.0</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Three.js (3D Holografik İnsan Modeli için) -->
+    <!-- Three.js (For 3D Holographic Human Model) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -48,7 +48,7 @@
         }
 
         .glass-panel {
-            background: rgba(10, 18, 38, 0.85);
+            background: rgba(10, 18, 38, 0.9);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             border: 1px solid rgba(0, 240, 255, 0.25);
@@ -56,37 +56,21 @@
         }
 
         .glass-panel-danger {
-            background: rgba(45, 10, 15, 0.9);
+            background: rgba(45, 10, 15, 0.95);
             backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 59, 48, 0.7);
-            box-shadow: 0 0 35px rgba(255, 59, 48, 0.35);
+            border: 1px solid rgba(255, 59, 48, 0.8);
+            box-shadow: 0 0 35px rgba(255, 59, 48, 0.4);
             animation: pulse-border 1.5s infinite;
         }
 
         @keyframes pulse-border {
-            0%, 100% { border-color: rgba(255, 59, 48, 0.8); }
+            0%, 100% { border-color: rgba(255, 59, 48, 0.9); }
             50% { border-color: rgba(255, 184, 0, 0.9); }
-        }
-
-        .hotspot-marker {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
-            z-index: 20;
-            transition: all 0.25s ease;
-        }
-        .hotspot-marker:hover {
-            transform: translate(-50%, -50%) scale(1.12);
         }
 
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #040812; }
         ::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.3); border-radius: 10px; }
-
-        .eva-wrist-frame {
-            border: 3px solid #FFB800;
-            box-shadow: 0 0 40px rgba(255, 184, 0, 0.2), inset 0 0 30px rgba(255, 184, 0, 0.08);
-        }
 
         .modal-backdrop {
             background: rgba(4, 8, 18, 0.92);
@@ -96,111 +80,79 @@
 </head>
 <body class="min-h-screen flex flex-col font-sans select-none">
 
-    <!-- GÜVENLİ GİRİŞ EKRANI -->
+    <!-- BIOMETRIC FINGERPRINT AUTHENTICATION SCREEN -->
     <div id="auth-lockscreen" class="fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4">
-        <div class="glass-panel rounded-3xl max-w-md w-full p-6 border border-cyan-400/60 shadow-[0_0_50px_rgba(0,240,255,0.25)]">
-            <div class="text-center mb-5">
-                <div class="w-16 h-16 rounded-2xl bg-cyan-500/15 border border-cyan-400 mx-auto flex items-center justify-center mb-3 shadow-[0_0_20px_rgba(0,240,255,0.4)]">
-                    <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                    </svg>
-                </div>
-                <h2 class="font-mono font-bold text-lg text-white tracking-wider">ASTRA-MED <span class="text-cyan-400">GÜVENLİ GİRİŞ</span></h2>
-                <p class="text-xs text-slate-400 mt-1">Astronot Bireysel Şifre Doğrulama Katmanı</p>
+        <div class="glass-panel rounded-3xl max-w-md w-full p-6 border border-cyan-400/60 shadow-[0_0_50px_rgba(0,240,255,0.25)] text-center">
+            <div class="w-16 h-16 rounded-2xl bg-cyan-500/15 border border-cyan-400 mx-auto flex items-center justify-center mb-3 shadow-[0_0_20px_rgba(0,240,255,0.4)]">
+                <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.115 6.845l.209-.415A18.562 18.562 0 0116 13a6 6 0 10-12 0c0 1.542.302 3.013.852 4.356m2.548 3.544l-.23.125a17.202 17.202 0 01-5.17-5.025"/>
+                </svg>
             </div>
+            <h2 class="font-mono font-bold text-lg text-white tracking-wider">ASTRA-MED <span class="text-cyan-400">BIOMETRIC LOCK</span></h2>
+            <p class="text-xs text-slate-400 mt-1 mb-6">Authenticate securely using your fingerprint scan</p>
 
-            <div class="space-y-4 text-xs font-mono">
+            <div class="space-y-4 text-xs font-mono text-left mb-6">
                 <div>
-                    <label class="text-slate-300 block mb-1.5">Kayıtlı Astronot Seçin</label>
+                    <label class="text-slate-300 block mb-1.5">Select Crew Member</label>
                     <select id="auth-select-ast" class="w-full bg-slate-950 border border-cyan-500/40 rounded-xl px-3 py-2.5 text-white focus:outline-none cursor-pointer">
                     </select>
                 </div>
+            </div>
 
-                <div>
-                    <label class="text-slate-300 block mb-1.5">Kişisel Güvenlik Şifresi</label>
-                    <input type="password" id="auth-password" value="" placeholder="Kişisel şifrenizi giriniz..." class="w-full bg-slate-950 border border-cyan-500/50 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-cyan-400 text-sm">
-                </div>
+            <button onclick="handleFingerprintLogin()" id="btn-fingerprint" class="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs uppercase tracking-wider hover:opacity-95 transition shadow-[0_0_25px_rgba(0,240,255,0.5)] flex items-center justify-center gap-2">
+                <span class="text-lg">👆</span> <span>SCAN FINGERPRINT & LOGIN</span>
+            </button>
 
-                <button onclick="handleLogin()" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs uppercase tracking-wider hover:opacity-90 transition shadow-[0_0_20px_rgba(0,240,255,0.4)]">
-                    🔐 SİSTEME GİRİŞ YAP
+            <div class="pt-4 mt-4 border-t border-slate-800 text-center">
+                <button onclick="openRegisterModal()" class="text-cyan-400 hover:text-cyan-300 font-mono font-bold text-xs underline transition">
+                    ✨ Create New Astronaut Biometric Profile
                 </button>
-
-                <div class="pt-2 border-t border-slate-800 text-center">
-                    <button onclick="openRegisterModal()" class="text-cyan-400 hover:text-cyan-300 font-bold text-xs underline transition">
-                        ✨ Yeni Astronot Kimlik Kaydı Oluştur
-                    </button>
-                </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL: YENİ ASTRONOT KİMLİK KAYDI (REGISTER) -->
+    <!-- NEW ASTRONAUT REGISTRATION MODAL -->
     <div id="register-modal" class="hidden fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4">
         <div class="glass-panel rounded-3xl max-w-md w-full p-6 border border-amber-400/60 shadow-2xl font-mono">
             <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
                 <div class="flex items-center gap-2">
                     <span class="text-xl">✨</span>
-                    <h3 class="font-bold text-sm text-amber-300">YENİ ASTRONOT BİYOMETRİK KAYDI</h3>
+                    <h3 class="font-bold text-sm text-amber-300">NEW ASTRONAUT BIOMETRIC ENROLLMENT</h3>
                 </div>
                 <button onclick="closeRegisterModal()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
             </div>
 
             <div class="space-y-3 text-xs">
                 <div>
-                    <label class="text-slate-300 block mb-1">Ad Soyad / Unvan</label>
-                    <input type="text" id="reg-name" placeholder="Örn: Uzman Arifenur Kezkiç" class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-3 py-2 text-white focus:outline-none">
+                    <label class="text-slate-300 block mb-1">Full Name / Rank</label>
+                    <input type="text" id="reg-name" placeholder="e.g. Dr. Arifenur Kezkiç" class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-3 py-2 text-white">
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <label class="text-slate-300 block mb-1">Görev Rolü</label>
-                        <select id="reg-role" class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-2 py-2 text-white focus:outline-none cursor-pointer">
-                            <option value="Görev Uzmanı">Görev Uzmanı</option>
-                            <option value="Komutan">Komutan</option>
-                            <option value="Uçuş Doktoru">Uçuş Doktoru</option>
+                        <label class="text-slate-300 block mb-1">Mission Role</label>
+                        <select id="reg-role" class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-2 py-2 text-white">
+                            <option value="Flight Surgeon">Flight Surgeon</option>
+                            <option value="Commander">Commander</option>
+                            <option value="Mission Specialist">Mission Specialist</option>
                             <option value="Pilot">Pilot</option>
                         </select>
                     </div>
                     <div>
-                        <label class="text-slate-300 block mb-1">Kan Grubu</label>
-                        <select id="reg-blood" class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-2 py-2 text-white focus:outline-none cursor-pointer">
-                            <option value="0 Rh+">0 Rh+</option><option value="0 Rh-">0 Rh-</option>
+                        <label class="text-slate-300 block mb-1">Blood Type</label>
+                        <select id="reg-blood" class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-2 py-2 text-white">
+                            <option value="O Rh+">O Rh+</option><option value="O Rh-">O Rh-</option>
                             <option value="A Rh+">A Rh+</option><option value="A Rh-">A Rh-</option>
-                            <option value="B Rh+">B Rh+</option><option value="B Rh-">B Rh-</option>
-                            <option value="AB Rh+">AB Rh+</option><option value="AB Rh-">AB Rh-</option>
                         </select>
                     </div>
                 </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <div>
-                        <label class="text-slate-300 block mb-1">Boy (cm)</label>
-                        <input type="number" id="reg-height" value="172" class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-2 py-2 text-white focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="text-slate-300 block mb-1">Kilo (kg)</label>
-                        <input type="number" id="reg-weight" value="65" class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-2 py-2 text-white focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="text-slate-300 block mb-1">Bazal Nabız</label>
-                        <input type="number" id="reg-hr" value="65" class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-2 py-2 text-white focus:outline-none">
-                    </div>
-                </div>
-                <div>
-                    <label class="text-slate-300 block mb-1">Kişisel Güvenlik Şifresi</label>
-                    <input type="password" id="reg-pass" placeholder="Örn: gizlisifre123" class="w-full bg-slate-950 border border-amber-500/50 rounded-xl px-3 py-2 text-white focus:outline-none">
-                </div>
-                <div>
-                    <label class="text-slate-300 block mb-1">Hassasiyet / Sağlık Notu</label>
-                    <input type="text" id="reg-condition" placeholder="Örn: Temiz tıbbi geçmiş" class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-3 py-2 text-white focus:outline-none">
-                </div>
-
-                <button onclick="handleRegister()" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold uppercase tracking-wider hover:opacity-90 transition shadow-[0_0_20px_rgba(255,184,0,0.3)] mt-2">
-                    ✓ KİMLİĞİ KAYDET VE SİSTEME KATIL
+                <button onclick="handleRegister()" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold uppercase tracking-wider hover:opacity-90 transition mt-2">
+                    ✓ REGISTER & ENROLL FINGERPRINT
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- ÜST KONTROL ÇUBUĞU -->
+    <!-- TOP CONTROL BAR -->
     <header class="glass-panel border-b border-cyan-500/30 px-4 py-3 flex flex-wrap items-center justify-between gap-3 z-30">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-400 flex items-center justify-center shadow-[0_0_15px_rgba(0,240,255,0.3)]">
@@ -210,65 +162,58 @@
             </div>
             <div>
                 <div class="flex items-center gap-2">
-                    <h1 class="font-mono font-bold text-base sm:text-lg tracking-wider text-white">ASTRA-MED <span class="text-cyan-400">HRP v4.1</span></h1>
-                    <span id="header-role-badge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">GİZLİ OTURUM</span>
+                    <h1 class="font-mono font-bold text-base sm:text-lg tracking-wider text-white">ASTRA-MED <span class="text-cyan-400">HRP v7.0</span></h1>
+                    <span id="header-role-badge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">SECURE SESSION</span>
                 </div>
-                <p class="text-xs text-slate-400 hidden sm:block">Güvenli Çoklu Mürettebat Oturum Yönetimi</p>
+                <p class="text-xs text-slate-400 hidden sm:block">Real-Time Telemetry & Multi-Agent Anamnesis AI</p>
             </div>
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
             <div class="flex items-center bg-slate-950/90 border border-cyan-500/40 rounded-xl px-3 py-1.5 font-mono text-xs text-white">
                 <span id="header-status-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 mr-2"></span>
-                <span id="logged-user-name">Giriş Yapılmadı</span>
+                <span id="logged-user-name">Not Logged In</span>
             </div>
 
-            <!-- EVA Protokoller -->
             <button onclick="openEvaProtocolsModal()" class="px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/60 text-amber-200 font-mono font-bold text-xs transition flex items-center gap-1.5">
-                <span>📖</span> <span>EVA Protokol</span>
+                <span>📖</span> <span>EVA Protocols</span>
             </button>
 
-            <!-- Görüntülü Görüşme & AI Tanı -->
-            <button onclick="openVideoConsultModal()" class="px-3 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/60 text-cyan-200 font-mono font-bold text-xs transition flex items-center gap-1.5">
-                <span>📹</span> <span>Görüntülü Görüşme & AI</span>
+            <!-- Multi-Agent AI & Video Doctor Consult -->
+            <button onclick="openVideoConsultModal()" class="px-3 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/60 text-cyan-200 font-mono font-bold text-xs transition flex items-center gap-1.5 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                <span>🤖</span> <span>Multi-Agent AI & Video Surgeon</span>
             </button>
 
-            <!-- Mürettebat Özeti (Doktor / Komutan) -->
+            <!-- CREW HEALTH OVERVIEW (RESTRICTED TO FLIGHT SURGEON ONLY) -->
             <button id="btn-crew-overview" onclick="openCrewOverviewModal()" class="hidden px-3 py-2 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-400/50 text-indigo-200 font-mono font-bold text-xs transition flex items-center gap-1.5">
-                <span>📊</span> <span>Mürettebat Özeti</span>
+                <span>📊</span> <span>Crew Health Overview (Surgeon Only)</span>
             </button>
 
-            <!-- OTURUMU KAPAT (LOGOUT) -->
-            <button onclick="handleLogout()" class="px-3 py-2 rounded-xl bg-red-500/20 hover:bg-red-500/30 border border-red-500/50 text-red-200 font-mono font-bold text-xs transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(255,59,48,0.2)]">
-                <span>🚪</span> <span>Oturumu Kapat</span>
+            <button onclick="handleLogout()" class="px-3 py-2 rounded-xl bg-red-500/20 hover:bg-red-500/30 border border-red-500/50 text-red-200 font-mono font-bold text-xs transition flex items-center gap-1.5">
+                <span>🚪</span> <span>Logout</span>
             </button>
-        </div>
-
-        <div class="flex items-center gap-2 bg-slate-950/90 p-1.5 rounded-xl border border-slate-700/80">
-            <button id="btn-station-mode" onclick="setMode('station')" class="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all bg-cyan-500 text-slate-950">🛰️ İSTASYON</button>
-            <button id="btn-eva-mode" onclick="setMode('eva')" class="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all text-amber-400">🧑‍🚀 EVA HUD</button>
         </div>
     </header>
 
-    <!-- ACİL UYARI BANDI -->
+    <!-- CRITICAL ALERT BANNER -->
     <div id="emergency-banner" class="hidden bg-red-600/90 border-b border-red-300 text-white px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 z-30">
         <div class="flex items-center gap-2 font-mono text-xs sm:text-sm font-bold">
             <span class="animate-bounce text-lg">⚠️</span>
-            <span id="emergency-text">KRİTİK UYARI: GÜNEŞ PATLAMASI TESPİT EDİLDİ!</span>
+            <span id="emergency-text">CRITICAL ALERT: AI DETECTED IMPORTANT ANOMALY AND NOTIFIED FLIGHT SURGEON!</span>
         </div>
-        <button onclick="resolveEmergency()" class="px-3 py-1 bg-white text-red-700 font-mono font-bold text-xs rounded-lg hover:bg-slate-100 transition">ALARMI SUSTUR & SIFIRLA</button>
+        <button onclick="resolveEmergency()" class="px-3 py-1 bg-white text-red-700 font-mono font-bold text-xs rounded-lg hover:bg-slate-100 transition">MUTE ALARM & RESET</button>
     </div>
 
-    <!-- ANA İÇERİK -->
+    <!-- MAIN WORKSPACE -->
     <main id="main-workspace" class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 p-4 max-w-[1600px] w-full mx-auto">
 
-        <!-- SOL PANEL: KÜNYE, ŞİFRE DEĞİŞTİRME & 5 SAĞLIK RİSKİ -->
+        <!-- LEFT PANEL: PROFILE & 5 HEALTH RISKS -->
         <section id="left-panel" class="lg:col-span-4 flex flex-col gap-4">
             
             <div class="glass-panel rounded-2xl p-4">
                 <div class="flex items-center justify-between mb-3">
-                    <span class="text-xs font-mono text-cyan-400 tracking-widest uppercase">👨‍🚀 Kişisel Profil & Güvenlik</span>
-                    <button onclick="toggleEditProfile()" id="btn-edit-profile" class="text-xs font-mono px-2.5 py-1 rounded-lg bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/25 transition">✏️ Profili & Şifreyi Düzenle</button>
+                    <span class="text-xs font-mono text-cyan-400 tracking-widest uppercase">👨‍🚀 Biometric Profile & Sensors</span>
+                    <button onclick="toggleEditProfile()" id="btn-edit-profile" class="text-xs font-mono px-2.5 py-1 rounded-lg bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/25 transition">✏️ Edit</button>
                 </div>
 
                 <div id="profile-view" class="space-y-3">
@@ -277,73 +222,69 @@
                             <span id="disp-initials">DY</span>
                         </div>
                         <div>
-                            <h2 id="disp-name" class="text-lg font-bold text-white">Komutan Deniz Yılmaz</h2>
-                            <p id="disp-mission" class="text-xs font-mono text-cyan-400">ARTEMIS-IV • KOMUTAN</p>
+                            <h2 id="disp-name" class="text-lg font-bold text-white">Commander Deniz Yılmaz</h2>
+                            <p id="disp-mission" class="text-xs font-mono text-cyan-400">ARTEMIS-IV • COMMANDER</p>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-3 gap-2 pt-1 font-mono text-xs">
                         <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-                            <div class="text-slate-400 text-[10px]">BOY / KİLO</div>
-                            <div id="disp-height-weight" class="text-cyan-300 font-bold text-xs mt-0.5">178 cm / 72 kg</div>
+                            <div class="text-slate-400 text-[10px]">CORE TEMP</div>
+                            <div id="tel-temp" class="text-cyan-300 font-bold text-xs mt-0.5">36.6 °C</div>
                         </div>
                         <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-                            <div class="text-slate-400 text-[10px]">KAN / NABIZ</div>
-                            <div id="disp-blood-hr" class="text-white font-bold text-xs mt-0.5">0 Rh+ / 64 bpm</div>
+                            <div class="text-slate-400 text-[10px]">BP</div>
+                            <div id="tel-bp" class="text-white font-bold text-xs mt-0.5">120/80 mmHg</div>
                         </div>
                         <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-                            <div class="text-slate-400 text-[10px]">RADYASYON</div>
-                            <div id="disp-rad-total" class="text-amber-400 font-bold text-xs mt-0.5">42.5 mSv</div>
+                            <div class="text-slate-400 text-[10px]">ISS LOCATION</div>
+                            <div id="tel-loc" class="text-amber-400 font-bold text-[11px] mt-0.5 truncate">Kibo Module</div>
                         </div>
                     </div>
 
                     <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 text-xs">
-                        <span class="text-slate-400 font-mono block text-[10px] mb-1">ŞİFRELİ GEÇMİŞ & HASSASİYET:</span>
-                        <p id="disp-condition" class="text-slate-200">Lomber omurga disk hassasiyeti.</p>
+                        <span class="text-slate-400 font-mono block text-[10px] mb-1">ENCRYPTED MEDICAL HISTORY & SENSITIVITIES:</span>
+                        <p id="disp-condition" class="text-slate-200">Lumbar spine disc sensitivity.</p>
                     </div>
                 </div>
 
                 <div id="profile-edit" class="hidden space-y-2.5 text-xs font-mono">
                     <div>
-                        <label class="text-slate-400 block mb-1">Ad Soyad</label>
-                        <input type="text" id="inp-name" class="w-full bg-slate-950 border border-cyan-500/40 rounded-lg px-3 py-2 text-white focus:outline-none">
+                        <label class="text-slate-400 block mb-1">Full Name</label>
+                        <input type="text" id="inp-name" class="w-full bg-slate-950 border border-cyan-500/40 rounded-lg px-3 py-2 text-white">
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <label class="text-slate-400 block mb-1">Boy (cm)</label>
-                            <input type="number" id="inp-height" min="140" max="220" class="w-full bg-slate-950 border border-cyan-500/40 rounded-lg px-3 py-2 text-white focus:outline-none">
+                            <label class="text-slate-400 block mb-1">Height (cm)</label>
+                            <input type="number" id="inp-height" class="w-full bg-slate-950 border border-cyan-500/40 rounded-lg px-3 py-2 text-white">
                         </div>
                         <div>
-                            <label class="text-slate-400 block mb-1">Kilo (kg)</label>
-                            <input type="number" id="inp-weight" min="40" max="150" class="w-full bg-slate-950 border border-cyan-500/40 rounded-lg px-3 py-2 text-white focus:outline-none">
+                            <label class="text-slate-400 block mb-1">Weight (kg)</label>
+                            <input type="number" id="inp-weight" class="w-full bg-slate-950 border border-cyan-500/40 rounded-lg px-3 py-2 text-white">
                         </div>
                     </div>
                     <div>
-                        <label class="text-cyan-400 block mb-1 font-bold">🔐 Yeni Kişisel Güvenlik Şifresi Belirle</label>
-                        <input type="password" id="inp-pass" placeholder="Yeni şifrenizi girin..." class="w-full bg-slate-950 border border-cyan-500/60 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-cyan-300">
-                    </div>
-                    <div>
-                        <label class="text-slate-400 block mb-1">Kişisel Sağlık Notu</label>
-                        <input type="text" id="inp-condition" class="w-full bg-slate-950 border border-cyan-500/40 rounded-lg px-3 py-2 text-white focus:outline-none">
+                        <label class="text-slate-400 block mb-1">Personal Health Note</label>
+                        <input type="text" id="inp-condition" class="w-full bg-slate-950 border border-cyan-500/40 rounded-lg px-3 py-2 text-white">
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="saveProfile()" class="flex-1 py-2 bg-cyan-500 text-slate-950 font-bold rounded-xl hover:bg-cyan-400 transition">✓ KAYDET</button>
-                        <button onclick="toggleEditProfile()" class="px-3 py-2 bg-slate-800 text-slate-300 rounded-xl hover:bg-slate-700 transition">İptal</button>
+                        <button onclick="saveProfile()" class="flex-1 py-2 bg-cyan-500 text-slate-950 font-bold rounded-xl">SAVE</button>
+                        <button onclick="toggleEditProfile()" class="px-3 py-2 bg-slate-800 text-slate-300 rounded-xl">Cancel</button>
                     </div>
                 </div>
             </div>
 
-            <!-- 5 Temel Sağlık Riski -->
+            <!-- 5 Core Health Risks -->
             <div class="glass-panel rounded-2xl p-4 flex-1 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-mono text-cyan-400 tracking-widest uppercase">📊 5 Temel Sağlık Riski</span>
-                        <span id="health-badge" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">OPTİMAL</span>
+                        <span class="text-xs font-mono text-cyan-400 tracking-widest uppercase">📊 5 Core Health Risks</span>
+                        <span id="health-badge" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">OPTIMAL</span>
                     </div>
 
                     <div class="mb-3 bg-slate-950/90 p-3 rounded-xl border border-slate-800">
                         <div class="flex justify-between text-xs font-mono mb-1.5">
-                            <span class="text-slate-300">GÖREV HAZIRLIK (VÜCUT PİLİ)</span>
+                            <span class="text-slate-300">MISSION READINESS (BODY BATTERY)</span>
                             <span id="battery-percent" class="text-emerald-400 font-bold">88%</span>
                         </div>
                         <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden p-0.5">
@@ -354,28 +295,28 @@
                     <div class="space-y-2.5 text-xs">
                         <div>
                             <div class="flex justify-between font-mono mb-1">
-                                <span class="text-slate-300">💤 Uyku & Sirkadiyen Ritim:</span>
-                                <span id="val-sleep" class="text-cyan-400 font-bold">7.5 Saat</span>
+                                <span class="text-slate-300">💤 Sleep & Circadian Rhythm:</span>
+                                <span id="val-sleep" class="text-cyan-400 font-bold">7.5 Hours</span>
                             </div>
                             <input type="range" id="slider-sleep" min="3" max="10" step="0.5" value="7.5" oninput="recalculateHealth()" class="w-full accent-cyan-400 cursor-pointer">
                         </div>
                         <div>
                             <div class="flex justify-between font-mono mb-1">
-                                <span class="text-slate-300">🧠 İzolasyon & Stres Seviyesi:</span>
+                                <span class="text-slate-300">🧠 Stress Level:</span>
                                 <span id="val-stress" class="text-amber-400 font-bold">2 / 10</span>
                             </div>
                             <input type="range" id="slider-stress" min="1" max="10" step="1" value="2" oninput="recalculateHealth()" class="w-full accent-amber-400 cursor-pointer">
                         </div>
                         <div>
                             <div class="flex justify-between font-mono mb-1">
-                                <span class="text-slate-300">💧 Sıvı Dolaşım Düzeyi:</span>
-                                <span id="val-water" class="text-cyan-400 font-bold">2.6 Litre</span>
+                                <span class="text-slate-300">💧 Fluid Circulation Level:</span>
+                                <span id="val-water" class="text-cyan-400 font-bold">2.6 Liters</span>
                             </div>
                             <input type="range" id="slider-water" min="0.5" max="4" step="0.1" value="2.6" oninput="recalculateHealth()" class="w-full accent-cyan-400 cursor-pointer">
                         </div>
                         <div>
                             <div class="flex justify-between font-mono mb-1">
-                                <span class="text-slate-300">☢️ Kozmik Radyasyon Dozu:</span>
+                                <span class="text-slate-300">☢️ Cosmic Radiation Dose:</span>
                                 <span id="val-rad" class="text-amber-400 font-bold">42.5 mSv</span>
                             </div>
                             <input type="range" id="slider-rad" min="10" max="250" step="1" value="42.5" oninput="recalculateHealth()" class="w-full accent-rose-400 cursor-pointer">
@@ -384,211 +325,176 @@
                 </div>
 
                 <div id="daily-coach-box" class="mt-3 p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs text-cyan-100">
-                    <span class="font-mono font-bold text-cyan-400 block mb-0.5">🤖 DETAYLI TANI ÖNGÖRÜSÜ:</span>
-                    <span id="ai-prediction-text">Hücresel adaptasyon stabil. Öngörülen risk yok.</span>
+                    <span class="font-mono font-bold text-cyan-400 block mb-0.5">🤖 5-MIN AUTONOMOUS FLOW:</span>
+                    <span id="ai-prediction-text">All sensors nominal. No emergencies detected.</span>
                 </div>
             </div>
         </section>
 
-        <!-- ORTA PANEL: 3D HOLOGRAFİK ANATOMİ -->
-        <section id="center-panel" class="lg:col-span-5 glass-panel rounded-2xl p-4 flex flex-col relative min-h-[460px] lg:min-h-[620px]">
+        <!-- CENTER PANEL: 3D HOLOGRAPHIC ANATOMY -->
+        <section id="center-panel" class="lg:col-span-5 glass-panel rounded-2xl p-4 flex flex-col relative min-h-[480px] lg:min-h-[620px]">
             <div class="flex items-center justify-between z-20 mb-2">
                 <div>
-                    <span class="text-xs font-mono text-cyan-400 tracking-widest uppercase">🧬 3D Holografik Biyo-Tarama</span>
-                    <p class="text-[11px] text-slate-400">Sürükleyerek döndür • Bölgeye tıkla</p>
+                    <span class="text-xs font-mono text-cyan-400 tracking-widest uppercase">🧬 3D Holographic Bio-Scan</span>
+                    <p class="text-[11px] text-slate-400">Drag to rotate • Click anatomical zone</p>
                 </div>
-                <button onclick="resetCamera()" class="px-2.5 py-1.5 rounded-lg bg-slate-900/90 border border-cyan-500/40 text-cyan-300 font-mono text-xs hover:bg-cyan-500/20 transition">🎯 Merkeze Al</button>
+                <button onclick="resetCamera()" class="px-2.5 py-1.5 rounded-lg bg-slate-900/90 border border-cyan-500/40 text-cyan-300 font-mono text-xs">🎯 Recenter</button>
             </div>
 
-            <div id="canvas-container" class="relative flex-1 w-full rounded-xl overflow-hidden bg-slate-950/60 border border-cyan-500/20 cursor-grab active:cursor-grabbing">
+            <div id="canvas-container" class="relative flex-1 w-full rounded-xl overflow-hidden bg-slate-950/60 border border-cyan-500/20 cursor-grab active:cursor-grabbing min-h-[380px]">
                 <div id="hotspots-layer" class="absolute inset-0 pointer-events-none"></div>
                 <div class="absolute bottom-3 left-3 right-3 flex flex-wrap justify-center gap-1.5 z-20">
-                    <button onclick="selectOrgan('brain')" class="px-2 py-1 rounded-lg bg-slate-900/90 hover:bg-cyan-500/20 border border-cyan-500/40 text-[11px] font-mono text-cyan-200">🧠 Beyin/SANS</button>
-                    <button onclick="selectOrgan('heart')" class="px-2 py-1 rounded-lg bg-slate-900/90 hover:bg-cyan-500/20 border border-cyan-500/40 text-[11px] font-mono text-cyan-200">❤️ Kardiyovasküler</button>
-                    <button onclick="selectOrgan('spine')" class="px-2 py-1 rounded-lg bg-slate-900/90 hover:bg-cyan-500/20 border border-cyan-500/40 text-[11px] font-mono text-cyan-200">🦴 Kas & Kemik</button>
-                    <button onclick="selectOrgan('immune')" class="px-2 py-1 rounded-lg bg-slate-900/90 hover:bg-cyan-500/20 border border-cyan-500/40 text-[11px] font-mono text-cyan-200">🛡️ Solunum/İzole</button>
+                    <button onclick="selectOrgan('brain')" class="px-2 py-1 rounded-lg bg-slate-900/90 hover:bg-cyan-500/20 border border-cyan-500/40 text-[11px] font-mono text-cyan-200">🧠 Brain/SANS</button>
+                    <button onclick="selectOrgan('heart')" class="px-2 py-1 rounded-lg bg-slate-900/90 hover:bg-cyan-500/20 border border-cyan-500/40 text-[11px] font-mono text-cyan-200">❤️ Cardiovascular</button>
+                    <button onclick="selectOrgan('spine')" class="px-2 py-1 rounded-lg bg-slate-900/90 hover:bg-cyan-500/20 border border-cyan-500/40 text-[11px] font-mono text-cyan-200">🦴 Musculoskeletal</button>
+                    <button onclick="selectOrgan('immune')" class="px-2 py-1 rounded-lg bg-slate-900/90 hover:bg-cyan-500/20 border border-cyan-500/40 text-[11px] font-mono text-cyan-200">🛡️ Respiratory/Isolated</button>
                 </div>
             </div>
         </section>
 
-        <!-- SAĞ PANEL: DETAYLI HASTALIK TANI & OTONOM TRİYAJ -->
+        <!-- RIGHT PANEL: DIAGNOSIS & ECG / TELEMETRY STATISTICS -->
         <section id="right-panel" class="lg:col-span-3 flex flex-col gap-4">
             
             <div id="triage-card" class="glass-panel rounded-2xl p-4 flex-1 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-mono text-amber-400 tracking-widest uppercase">🩺 Detaylı Tanı & Tedavi Öngörüsü</span>
-                        <span id="hrp-tag" class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">HRP: KEMİK KAYBI</span>
+                        <span class="text-xs font-mono text-amber-400 tracking-widest uppercase">🩺 Detailed Diagnosis & Treatment Prognosis</span>
+                        <span id="hrp-tag" class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">HRP: BONE LOSS</span>
                     </div>
 
-                    <h3 id="organ-title" class="text-base font-bold text-white mb-1">Omurga & Kas-İskelet Sistemi</h3>
+                    <h3 id="organ-title" class="text-base font-bold text-white mb-1">Spine & Musculoskeletal System</h3>
                     
                     <p id="organ-hazard" class="text-xs text-slate-300 leading-relaxed mb-2">
-                        Yerçekimsiz ortamda omurlar arası diskler genişler; aylık %1-1.5 osteoporotik kemik yoğunluğu kaybı oluşur.
+                        In microgravity, intervertebral discs expand; monthly 1-1.5% osteoporotic bone density loss occurs.
                     </p>
 
                     <div id="organ-treatment-detail" class="bg-cyan-950/40 p-2.5 rounded-xl border border-cyan-500/30 text-[11px] text-cyan-100 mb-3">
-                        <span class="font-bold text-cyan-300 block mb-1">📋 Klinik Tedavi & Farmakolojik Öngörü:</span>
-                        ARED direnç egzersizi protokolü, bifosfonat türevi profilaktik destek ve 800 IU D Vitamini takviyesi zorunludur.
+                        <span class="font-bold text-cyan-300 block mb-1">📋 Clinical Treatment & Pharmacological Forecast:</span>
+                        ARED resistive exercise protocol, bisphosphonate prophylactic support, and 800 IU Vitamin D supplementation are mandatory.
                     </div>
 
                     <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 mb-3 font-mono text-xs space-y-1.5">
                         <div class="flex justify-between">
-                            <span class="text-slate-400">Bölgesel Durum:</span>
-                            <span id="organ-metric-1" class="text-amber-400 font-bold">L4-L5 Baskı Artışı</span>
+                            <span class="text-slate-400">Regional Status:</span>
+                            <span id="organ-metric-1" class="text-amber-400 font-bold">L4-L5 Pressure Increase</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-slate-400">Tanı Riski:</span>
-                            <span id="organ-risk" class="text-amber-400 font-bold">ORTA DİKKAT</span>
+                            <span class="text-slate-400">Diagnosis Risk:</span>
+                            <span id="organ-risk" class="text-amber-400 font-bold">MODERATE ATTENTION</span>
                         </div>
                     </div>
 
                     <div class="space-y-2">
-                        <span class="text-[11px] font-mono text-cyan-400 font-bold block">⚡ ONAYLANMIŞ KLİNİK PROTOKOL:</span>
+                        <span class="text-[11px] font-mono text-cyan-400 font-bold block">⚡ APPROVED CLINICAL PROTOCOL:</span>
                         <ul id="organ-steps" class="space-y-2 text-xs text-slate-200"></ul>
                     </div>
                 </div>
 
                 <button onclick="applyProtocol()" id="btn-apply-protocol" class="mt-4 w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-mono font-bold text-xs hover:opacity-90 transition shadow-[0_0_15px_rgba(0,240,255,0.3)]">
-                    ✓ PROTOKOLÜ UYGULADIM (ONAYLA)
+                    ✓ I HAVE APPLIED PROTOCOL (CONFIRM)
                 </button>
             </div>
 
+            <!-- LIVE ECG & SENSOR STATISTICS -->
             <div id="telemetry-card" class="glass-panel rounded-2xl p-4">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-xs font-mono text-cyan-400 tracking-widest uppercase">📡 Anlık Biyo-Telemetri</span>
-                    <span class="text-[10px] font-mono text-emerald-400 animate-pulse">● 5 DK AKIŞ</span>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-mono text-cyan-400 tracking-widest uppercase">📡 Wearable Device & Live ECG</span>
+                    <span class="text-[10px] font-mono text-emerald-400 animate-pulse">● LIVE STREAM</span>
                 </div>
 
-                <div class="grid grid-cols-2 gap-2 font-mono mb-3">
+                <!-- ECG CANVAS CHART -->
+                <div class="bg-slate-950 rounded-xl p-2 border border-cyan-500/30 mb-3 relative overflow-hidden">
+                    <div class="absolute top-1 left-2 text-[9px] font-mono text-cyan-400/80">Lead II ECG (100Hz)</div>
+                    <canvas id="ekg-canvas" class="w-full h-16"></canvas>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 font-mono mb-3 text-xs">
                     <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800">
-                        <div class="text-[10px] text-slate-400">NABIZ (BPM)</div>
-                        <div id="tel-bpm" class="text-lg font-bold text-emerald-400">67 <span class="text-xs font-normal">bpm</span></div>
+                        <div class="text-[10px] text-slate-400">HEART RATE (BPM)</div>
+                        <div id="tel-bpm" class="text-base font-bold text-emerald-400">67 <span class="text-[10px] font-normal">bpm</span></div>
                     </div>
                     <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800">
-                        <div class="text-[10px] text-slate-400">O2 SATÜRASYON</div>
-                        <div id="tel-o2" class="text-lg font-bold text-cyan-400">99 <span class="text-xs font-normal">%</span></div>
-                    </div>
-                    <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800">
-                        <div class="text-[10px] text-slate-400">ANLIK RADYASYON</div>
-                        <div id="tel-rad" class="text-lg font-bold text-amber-400">0.42 <span class="text-xs font-normal">mSv/h</span></div>
-                    </div>
-                    <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800">
-                        <div class="text-[10px] text-slate-400">KIYAFET BASINCI</div>
-                        <div id="tel-psi" class="text-lg font-bold text-cyan-400">4.3 <span class="text-xs font-normal">PSI</span></div>
+                        <div class="text-[10px] text-slate-400">O2 ($SpO_2$) & HRV</div>
+                        <div id="tel-spo2" class="text-base font-bold text-cyan-400">98% <span class="text-[10px] text-slate-400 font-normal">| 64ms</span></div>
                     </div>
                 </div>
 
                 <button onclick="triggerEmergency()" class="w-full py-2.5 rounded-xl bg-red-500/20 hover:bg-red-500/30 border border-red-500/60 text-red-300 font-mono font-bold text-xs transition flex items-center justify-center gap-2">
-                    <span>🚨</span> ACİL DURUM SİNYALİ TETİKLE
+                    <span>🚨</span> TRIGGER EMERGENCY SIGNAL
                 </button>
             </div>
         </section>
     </main>
 
-    <!-- MODAL: EVA ACİL PROTOKOLLERİ -->
-    <div id="eva-protocols-modal" class="hidden fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4 overflow-y-auto">
-        <div class="glass-panel rounded-2xl max-w-3xl w-full p-5 border border-amber-400/50 shadow-2xl my-auto font-mono">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-                <div class="flex items-center gap-2">
-                    <span class="text-xl">📖</span>
-                    <h3 class="font-bold text-base text-amber-300">EVA UZAY YÜRÜYÜŞÜ ÇEVRİMDIŞI ACİL TIBBİ PROTOKOLLERİ</h3>
-                </div>
-                <button onclick="closeEvaProtocolsModal()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
-            </div>
-            <p class="text-xs text-slate-300 mb-4">* Dünya ile iletişim kopsa bile kıyafet içi bellekten çalışan doğrulanmış talimatlar:</p>
-            <div class="space-y-3 text-xs max-h-[60vh] overflow-y-auto pr-2">
-                <div class="p-3 rounded-xl bg-slate-950/90 border border-amber-500/30">
-                    <div class="font-bold text-amber-400 mb-1">1. GÜNEŞ PARLAMASI (SPE) & RADYASYON ARTIŞI</div>
-                    <p class="text-slate-300 leading-relaxed">Doz 50 mSv/h üzerine çıkarsa: Derhal dış görevi sonlandırın, hava kilidine dönün ve su duvarlı sığınağa geçin.</p>
-                </div>
-                <div class="p-3 rounded-xl bg-slate-950/90 border border-cyan-500/30">
-                    <div class="font-bold text-cyan-400 mb-1">2. ELDİVEN BASINÇ KAYBI</div>
-                    <p class="text-slate-300 leading-relaxed">Basınç 3.5 PSI altına düşerse: Yedek O2 tüpünü manuel devreye sokun, parmak ucu uyuşmasını izleyin.</p>
-                </div>
-            </div>
-            <div class="mt-4 pt-3 border-t border-slate-800 text-right">
-                <button onclick="closeEvaProtocolsModal()" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition">ANLADIM</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: GÖRÜNTÜLÜ GÖRÜŞME & DİNAMİK AI SOHBET MERKEZİ -->
+    <!-- MODAL: MULTI-AGENT ANAMNESIS AI & VIDEO SURGEON CONSULTATION -->
     <div id="video-consult-modal" class="hidden fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4">
         <div class="glass-panel rounded-3xl max-w-4xl w-full p-6 border border-cyan-400/60 shadow-2xl font-mono flex flex-col max-h-[90vh]">
             <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
                 <div class="flex items-center gap-2">
                     <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
-                    <h3 class="font-bold text-sm text-cyan-300">📹 GÖREV KONTROL MERKEZİ — GÖRÜNTÜLÜ DOKTOR & AI DANIŞMA</h3>
+                    <h3 class="font-bold text-sm text-cyan-300">🤖 MULTI-AGENT ANAMNESIS AI & VIDEO SURGEON LINK</h3>
                 </div>
-                <button onclick="closeVideoConsultModal()" class="text-slate-400 hover:text-white text-lg font-bold">✕ Kapat</button>
+                <button onclick="closeVideoConsultModal()" class="text-slate-400 hover:text-white text-lg font-bold">✕ Close</button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-4 flex-1 overflow-hidden">
-                <div class="md:col-span-7 flex flex-col gap-2">
-                    <div class="relative flex-1 bg-slate-950 rounded-2xl border border-cyan-500/40 overflow-hidden flex items-center justify-center min-h-[260px]">
+                <!-- Left: Live Doctor Video Feed -->
+                <div class="md:col-span-5 flex flex-col gap-2">
+                    <div id="doctor-video-box" class="relative flex-1 bg-slate-950 rounded-2xl border border-cyan-500/40 overflow-hidden flex items-center justify-center min-h-[220px]">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent z-10 opacity-70"></div>
-                        <div class="text-center z-20">
-                            <div class="w-20 h-20 rounded-full bg-cyan-500/20 border-2 border-cyan-400 mx-auto flex items-center justify-center text-3xl mb-2 shadow-[0_0_20px_rgba(0,240,255,0.4)]">
+                        <div class="text-center z-20 p-3">
+                            <div id="doctor-avatar" class="w-16 h-16 rounded-full bg-cyan-500/20 border-2 border-cyan-400 mx-auto flex items-center justify-center text-2xl mb-2 shadow-[0_0_20px_rgba(0,240,255,0.4)]">
                                 👩‍⚕️
                             </div>
-                            <div class="text-white font-bold text-sm">Dr. Sarah Vance (Houston MD)</div>
-                            <div class="text-[11px] text-emerald-400 mt-0.5">● Canlı Kriptolu Akış (HD 1080p • 1.2sn gecikme)</div>
-                        </div>
-
-                        <div class="absolute bottom-3 right-3 w-28 h-20 bg-slate-900 border border-cyan-400/60 rounded-xl overflow-hidden flex items-center justify-center z-20 shadow-lg">
-                            <span class="text-[10px] text-cyan-300">Sizin Kameranız</span>
+                            <div id="doctor-name-label" class="text-white font-bold text-xs">Dr. Sarah Vance (Houston Flight Surgeon)</div>
+                            <div id="doctor-status-label" class="text-[10px] text-emerald-400 mt-0.5">● Standby Ready (AI Triage Assistant Active)</div>
                         </div>
                     </div>
-
-                    <div class="flex justify-center gap-3 py-1">
-                        <button onclick="toggleVideoMute(this)" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs text-slate-200 transition">🎙️ Mikrofonu Kapat</button>
-                        <button onclick="toggleVideoCam(this)" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs text-slate-200 transition">📷 Kamerayı Kapat</button>
-                        <button onclick="closeVideoConsultModal()" class="px-4 py-2 rounded-xl bg-red-500/20 hover:bg-red-500/30 border border-red-500/50 text-xs text-red-300 transition">📞 Aramayı Sonlandır</button>
+                    <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-300">
+                        <span class="text-cyan-400 font-bold block mb-0.5">🎯 Active Specialty Agent:</span>
+                        <span id="active-agent-label">General Triage & Anamnesis Agent</span>
                     </div>
                 </div>
 
-                <div class="md:col-span-5 flex flex-col bg-slate-950/80 rounded-2xl border border-slate-800 p-3 overflow-hidden">
+                <!-- Right: Multi-Agent Chat & Anamnesis Flow -->
+                <div class="md:col-span-7 flex flex-col bg-slate-950/80 rounded-2xl border border-slate-800 p-3 overflow-hidden">
                     <div class="text-xs text-cyan-400 font-bold mb-2 pb-2 border-b border-slate-800 flex items-center justify-between">
-                        <span>💬 AKILLI TIBBİ DANIŞMAN (LLM)</span>
-                        <span class="text-[10px] text-slate-400">Bağlam: Aktif Oturum</span>
+                        <span>💬 STEP-BY-STEP ANAMNESIS & SURGEON SIGNAL HUB</span>
+                        <span class="text-[10px] text-slate-400">Live Context</span>
                     </div>
 
                     <div id="dynamic-chat-box" class="flex-1 overflow-y-auto space-y-2.5 text-xs pr-1 mb-2">
-                        <div class="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-100">
-                            <span class="text-[10px] text-cyan-400 block font-bold mb-0.5">Dr. Sarah Vance & AI Asistanı:</span>
-                            "Merhaba! Görüntülü hattımız ve yapay zekâ analiz merkezimiz aktif. Sağlığınızla ilgili dilediğiniz soruyu sorabilir veya belirtilerinizi paylaşabilirsiniz."
-                        </div>
+                        <!-- Proactive Welcome Loaded Here -->
                     </div>
 
                     <div class="flex gap-2 pt-2 border-t border-slate-800">
-                        <input type="text" id="dynamic-chat-input" placeholder="Soru sorun..." class="flex-1 bg-slate-950 border border-cyan-500/40 rounded-xl px-3 py-2 text-white text-xs focus:outline-none">
-                        <button onclick="sendDynamicMessage()" class="px-3 py-2 bg-cyan-500 text-slate-950 font-bold text-xs rounded-xl hover:bg-cyan-400 transition">GÖNDER</button>
+                        <input type="text" id="dynamic-chat-input" placeholder="Describe symptoms in detail (e.g., chest tightness, shortness of breath)..." class="flex-1 bg-slate-950 border border-cyan-500/40 rounded-xl px-3 py-2 text-white text-xs focus:outline-none">
+                        <button onclick="sendAnamnesisMessage()" class="px-3 py-2 bg-cyan-500 text-slate-950 font-bold text-xs rounded-xl hover:bg-cyan-400 transition">REPLY</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL: MÜRETTEBAT ÖZETİ -->
+    <!-- MODAL: CREW HEALTH OVERVIEW (FLIGHT SURGEON EXCLUSIVE) -->
     <div id="crew-overview-modal" class="hidden fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4 overflow-y-auto">
         <div class="glass-panel rounded-2xl max-w-5xl w-full p-5 border border-indigo-400/50 shadow-2xl my-auto font-mono">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3 mb-4">
                 <div>
-                    <h3 class="font-bold text-base sm:text-lg text-white">📊 NASA HRP MÜRETTEBAT SAĞLIK ÖZETİ</h3>
-                    <p class="text-xs text-slate-400">Yalnızca Uçuş Doktoru ve Komutan erişebilir.</p>
+                    <h3 class="font-bold text-base sm:text-lg text-white">📊 NASA HRP CREW HEALTH OVERVIEW ( FLIGHT SURGEON EXCLUSIVE )</h3>
+                    <p class="text-xs text-slate-400">This classified telemetry panel is restricted solely to the Flight Surgeon (other roles cannot view crew data).</p>
                 </div>
-                <button onclick="closeCrewOverviewModal()" class="px-3 py-1.5 rounded-lg bg-red-500/20 text-red-300 border border-red-500/40 text-xs font-bold">✕ Kapat</button>
+                <button onclick="closeCrewOverviewModal()" class="px-3 py-1.5 rounded-lg bg-red-500/20 text-red-300 border border-red-500/40 text-xs font-bold">✕ Close</button>
             </div>
             <div class="overflow-x-auto rounded-xl border border-slate-800">
                 <table class="w-full text-left border-collapse text-xs">
                     <thead>
                         <tr class="bg-slate-900/95 text-cyan-400 border-b border-slate-800">
-                            <th class="p-3">ASTRONOT & ROL</th>
-                            <th class="p-3">BOY / KİLO</th>
-                            <th class="p-3">VÜCUT PİLİ</th>
-                            <th class="p-3">RADYASYON</th>
-                            <th class="p-3">DURUM</th>
+                            <th class="p-3">ASTRONAUT & ROLE</th>
+                            <th class="p-3">TEMP / BP</th>
+                            <th class="p-3">BODY BATTERY</th>
+                            <th class="p-3">RADIATION</th>
+                            <th class="p-3">STATUS</th>
                         </tr>
                     </thead>
                     <tbody id="crew-comparison-tbody" class="divide-y divide-slate-800/80 bg-slate-950/60"></tbody>
@@ -597,51 +503,83 @@
         </div>
     </div>
 
+    <!-- MODAL: EVA PROTOCOLS -->
+    <div id="eva-protocols-modal" class="hidden fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div class="glass-panel rounded-2xl max-w-3xl w-full p-5 border border-amber-400/50 shadow-2xl my-auto font-mono">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">📖</span>
+                    <h3 class="font-bold text-base text-amber-300">EVA SPACEWALK OFFLINE EMERGENCY MEDICAL PROTOCOLS</h3>
+                </div>
+                <button onclick="closeEvaProtocolsModal()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+            </div>
+            <div class="space-y-3 text-xs max-h-[60vh] overflow-y-auto pr-2">
+                <div class="p-3 rounded-xl bg-slate-950/90 border border-amber-500/30">
+                    <div class="font-bold text-amber-400 mb-1">1. SOLAR PARTICLE EVENT (SPE) & RADIATION SPIKE</div>
+                    <p class="text-slate-300">If dose exceeds 50 mSv/h: Immediately terminate EVA, return to airlock.</p>
+                </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800 text-right">
+                <button onclick="closeEvaProtocolsModal()" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded-xl">I UNDERSTAND</button>
+            </div>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT -->
     <script>
-        const STORAGE_KEY = 'astra_med_crew_secure_v7';
+        const STORAGE_KEY = 'astra_med_crew_secure_v12';
         
         const defaultCrewData = [
             {
                 id: 'ast-1',
-                name: 'Komutan Deniz Yılmaz',
-                role: 'Komutan',
-                pass: 'komutan2026',
-                blood: '0 Rh+',
-                baselineHr: 64,
-                height: 178,
-                weight: 72,
-                condition: 'Lomber omurga disk hassasiyeti.',
-                sleep: 7.5, stress: 2, water: 2.6, radiation: 42.5, activeOrgan: 'spine', suitPressure: 4.3, o2: 99
+                name: 'Dr. Kerem Kaya',
+                role: 'Flight Surgeon',
+                blood: 'A Rh+',
+                baselineHr: 72,
+                temp: 36.7,
+                bp: '118/76',
+                spo2: 99,
+                location: 'Destiny Lab',
+                height: 182,
+                weight: 78,
+                condition: 'SANS intracranial pressure tracking.',
+                sleep: 6.0, stress: 5, water: 1.8, radiation: 78.4, activeOrgan: 'brain'
             },
             {
                 id: 'ast-2',
-                name: 'Dr. Kerem Kaya',
-                role: 'Uçuş Doktoru',
-                pass: 'doktor2026',
-                blood: 'A Rh+',
-                baselineHr: 72,
-                height: 182,
-                weight: 78,
-                condition: 'Hafif miyopi; SANS basınç takibi.',
-                sleep: 6.0, stress: 5, water: 1.8, radiation: 78.4, activeOrgan: 'brain', suitPressure: 4.3, o2: 98
+                name: 'Commander Deniz Yılmaz',
+                role: 'Commander',
+                blood: 'O Rh+',
+                baselineHr: 64,
+                temp: 36.6,
+                bp: '120/80',
+                spo2: 98,
+                location: 'Kibo Module (ISS)',
+                height: 178,
+                weight: 72,
+                condition: 'Lumbar spine disc sensitivity.',
+                sleep: 7.5, stress: 2, water: 2.6, radiation: 42.5, activeOrgan: 'spine'
             },
             {
                 id: 'ast-3',
-                name: 'Uzman Selin Demir',
-                role: 'Görev Uzmanı',
-                pass: 'uzman2026',
+                name: 'Specialist Selin Demir',
+                role: 'Mission Specialist',
                 blood: 'B Rh-',
                 baselineHr: 66,
+                temp: 36.5,
+                bp: '122/82',
+                spo2: 98,
+                location: 'Cupola Observation',
                 height: 168,
                 weight: 59,
-                condition: 'Polen alerjisi geçmişi.',
-                sleep: 8.0, stress: 2, water: 2.8, radiation: 31.0, activeOrgan: 'heart', suitPressure: 4.3, o2: 99
+                condition: 'Clean medical history.',
+                sleep: 8.0, stress: 2, water: 2.8, radiation: 31.0, activeOrgan: 'heart'
             }
         ];
 
         let crewList = [];
         let activeAstronautId = null;
+        let anamnesisState = { step: 0, specialty: 'General Triage' };
 
         function loadCrewFromStorage() {
             try {
@@ -670,95 +608,70 @@
             loadCrewFromStorage();
             const select = document.getElementById('auth-select-ast');
             select.innerHTML = crewList.map(a => `<option value="${a.id}">${a.name} (${a.role})</option>`).join('');
-            document.getElementById('auth-password').value = '';
         }
 
-        function handleLogin() {
+        function handleFingerprintLogin() {
             const selectId = document.getElementById('auth-select-ast').value;
-            const pwd = document.getElementById('auth-password').value.trim();
-            const ast = crewList.find(a => a.id === selectId);
+            const btn = document.getElementById('btn-fingerprint');
+            
+            btn.innerHTML = `<span class="animate-pulse">🔍 Scanning Fingerprint...</span>`;
+            btn.classList.add('bg-emerald-500', 'text-slate-950');
 
-            if (!ast || ast.pass !== pwd) {
-                alert('Hatalı şifre! Lütfen kendi kişisel şifrenizi giriniz.');
-                return;
-            }
-
-            activeAstronautId = selectId;
-            document.getElementById('auth-lockscreen').classList.add('hidden');
-            initSystem();
+            setTimeout(() => {
+                activeAstronautId = selectId;
+                document.getElementById('auth-lockscreen').classList.add('hidden');
+                btn.innerHTML = `<span class="text-lg">👆</span> <span>SCAN FINGERPRINT & LOGIN</span>`;
+                btn.classList.remove('bg-emerald-500', 'text-slate-950');
+                initSystem();
+                triggerProactiveWelcome();
+            }, 1000);
         }
 
         function handleLogout() {
             activeAstronautId = null;
-            document.getElementById('auth-password').value = '';
             initAuthDropdown();
             document.getElementById('auth-lockscreen').classList.remove('hidden');
         }
 
-        // YENİ KİMLİK KAYDI (REGISTER) İŞLEMLERİ
-        function openRegisterModal() {
-            document.getElementById('reg-name').value = '';
-            document.getElementById('reg-pass').value = '';
-            document.getElementById('reg-condition').value = '';
-            document.getElementById('register-modal').classList.remove('hidden');
-        }
-
-        function closeRegisterModal() {
-            document.getElementById('register-modal').classList.add('hidden');
+        function triggerProactiveWelcome() {
+            const ast = getActiveAstronaut();
+            anamnesisState = { step: 1, specialty: 'General Triage' };
+            
+            const chatBox = document.getElementById('dynamic-chat-box');
+            chatBox.innerHTML = `
+                <div class="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-100">
+                    <span class="text-[10px] text-cyan-400 block font-bold mb-0.5">🤖 General Triage AI Assistant:</span>
+                    "Hello <b>${ast.name}</b>! Bio-sensor connection active. Starting daily anamnesis briefing. Are you experiencing any pain, fatigue, dizziness, chest tightness, or unusual symptoms today?"
+                </div>
+            `;
         }
 
         function handleRegister() {
             const name = document.getElementById('reg-name').value.trim();
             const role = document.getElementById('reg-role').value;
             const blood = document.getElementById('reg-blood').value;
-            const height = parseInt(document.getElementById('reg-height').value) || 170;
-            const weight = parseInt(document.getElementById('reg-weight').value) || 65;
-            const hr = parseInt(document.getElementById('reg-hr').value) || 68;
-            const pass = document.getElementById('reg-pass').value.trim();
-            const condition = document.getElementById('reg-condition').value.trim() || 'Temiz tıbbi geçmiş.';
-
-            if (!name) {
-                alert('Lütfen astronot adını giriniz!');
-                return;
-            }
-            if (pass.length < 4) {
-                alert('Güvenlik Uyarısı: Şifre en az 4 karakter olmalıdır!');
-                return;
-            }
+            if (!name) { alert('Please enter astronaut name!'); return; }
 
             const newId = 'ast-' + Date.now();
             const newAstronaut = {
-                id: newId,
-                name: name,
-                role: role,
-                pass: pass,
-                blood: blood,
-                baselineHr: hr,
-                height: height,
-                weight: weight,
-                condition: condition,
-                sleep: 7.5,
-                stress: 2,
-                water: 2.5,
-                radiation: 40.0,
-                activeOrgan: 'spine',
-                suitPressure: 4.3,
-                o2: 99
+                id: newId, name: name, role: role, blood: blood, baselineHr: 68,
+                temp: 36.6, bp: '120/80', spo2: 98, location: 'Module-A (ISS)',
+                height: 172, weight: 65, condition: 'New biometric profile enrolled.',
+                sleep: 7.5, stress: 2, water: 2.5, radiation: 35.0, activeOrgan: 'spine'
             };
 
             crewList.push(newAstronaut);
             saveCrewToStorage();
             initAuthDropdown();
-
-            // Yeni eklenen kişiyi otomatik seç
             document.getElementById('auth-select-ast').value = newId;
-            closeRegisterModal();
-            alert(`✓ Başarıyla kaydedildiniz, ${name}! Şimdi belirlediğiniz şifreyle sisteme giriş yapabilirsiniz.`);
+            document.getElementById('register-modal').classList.add('hidden');
+            alert(`✓ Fingerprint enrolled successfully, ${name}! You can now login with biometric scanning.`);
         }
 
-        // ==========================================
-        // SESLİ ALARM (WEB AUDIO API)
-        // ==========================================
+        function openRegisterModal() { document.getElementById('register-modal').classList.remove('hidden'); }
+        function closeRegisterModal() { document.getElementById('register-modal').classList.add('hidden'); }
+
+        // AUDIO ALARM (WEB AUDIO API)
         let audioCtx = null;
         let alarmInterval = null;
 
@@ -789,24 +702,12 @@
         }
 
         // ==========================================
-        // DİNAMİK SOHBET MOTORU
+        // MULTI-AGENT ANAMNESIS & SURGEON SIGNAL
         // ==========================================
         function openVideoConsultModal() { document.getElementById('video-consult-modal').classList.remove('hidden'); }
         function closeVideoConsultModal() { document.getElementById('video-consult-modal').classList.add('hidden'); }
 
-        function toggleVideoMute(btn) {
-            btn.classList.toggle('bg-red-500/20');
-            btn.classList.toggle('border-red-500');
-            btn.innerText = btn.innerText.includes('Kapat') ? '🎙️ Mikrofonu Aç' : '🎙️ Mikrofonu Kapat';
-        }
-
-        function toggleVideoCam(btn) {
-            btn.classList.toggle('bg-red-500/20');
-            btn.classList.toggle('border-red-500');
-            btn.innerText = btn.innerText.includes('Kapat') ? '📷 Kamerayı Aç' : '📷 Kamerayı Kapat';
-        }
-
-        function sendDynamicMessage() {
+        function sendAnamnesisMessage() {
             const input = document.getElementById('dynamic-chat-input');
             const text = input.value.trim();
             if (!text) return;
@@ -823,251 +724,141 @@
             input.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            setTimeout(() => {
-                const lower = text.toLowerCase();
-                let reply = "Sorunuz NASA HRP yapay zekâ veri tabanında işlendi. Bu konuda 5 dakikalık telemetri akışınız normal görünüyor.";
+            const thinkingId = 'thinking-' + Date.now();
+            chatBox.innerHTML += `
+                <div id="${thinkingId}" class="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-200 animate-pulse">
+                    <span class="text-[10px] text-cyan-400 block font-bold">🧠 Multi-Agent Anamnesis Engine:</span>
+                    "Scanning symptoms, analyzing medical specialties..."
+                </div>
+            `;
+            chatBox.scrollTop = chatBox.scrollHeight;
 
-                if (lower.includes('baş') || lower.includes('migren') || lower.includes('dönme')) {
-                    reply = "Analiz: Baş dönmesi veya baş ağrısı, mikro yerçekiminde sıvıların kafa bölgesine yönelmesi (SANS) veya kabin içi hafif CO2 artışından kaynaklanabilir. Öneri: Hidrasyon seviyenizi kontrol edin ve LBNP cihazıyla bacaklara sıvı çekme protokolünü uygulayın.";
-                } else if (lower.includes('uyku') || lower.includes('uyuyamıyorum') || lower.includes('yorgun')) {
-                    reply = "Analiz: Uyku kaliteniz sirkadiyen ritim baskılanmasına işaret ediyor. Öneri: LED aydınlatma spektrumunu mavi ışıktan arındırın ve 3 mg melatonin takviyesi ile 20 dakikalık meditasyon protokolünü başlatın.";
-                } else if (lower.includes('radyasyon') || lower.includes('güneş') || lower.includes('parlama')) {
-                    reply = "Analiz: Kozmik radyasyon maruziyetiniz anlık takip ediliyor. Öneri: Doz eşiği güvenli sınırlarda, ancak dış yürüyüş yapacaksanız su duvarlı koruma kalkanını kontrol etmelisiniz.";
-                } else if (lower.includes('kalp') || lower.includes('nabız') || lower.includes('çarpıntı')) {
-                    reply = "Analiz: Anlık nabız değeriniz bazal seviyenizle uyumlu. Çarpıntı hissediyorsanız elektrolit (potasyum/magnezyum) dengesizliği olabilir. Bir tablet elektrolit solüsyonu için.";
-                } else if (lower.includes('merhaba') || lower.includes('selam') || lower.includes('nasıl')) {
-                    reply = "Merhaba! Houston Yer Kontrol merkezi ve AI sağlık asistanı olarak tüm sistemleriniz emrinizde. Bugün EVA yürüyüşü veya egzersiz planınız hakkında ne konuşmak istersiniz?";
+            setTimeout(() => {
+                document.getElementById(thinkingId).remove();
+                
+                const lower = text.toLowerCase();
+                let reply = "";
+                let agentName = "General Triage AI";
+                let isCritical = false;
+
+                if (lower.includes('heart') || lower.includes('palpitation') || lower.includes('chest') || lower.includes('pressure') || lower.includes('pain') || lower.includes('tightness') || lower.includes('kalp') || lower.includes('göğüs')) {
+                    anamnesisState.specialty = 'Cardiovascular Specialist AI';
+                    agentName = "❤️ Cardiovascular Specialist AI";
+                    isCritical = true;
+                    reply = "Cardiac anomaly detected! Forwarded to Cardiology Specialist Agent and urgent emergency signal dispatched to Dr. Sarah Vance in Houston!";
+                } else if (lower.includes('breath') || lower.includes('choke') || lower.includes('cough') || lower.includes('nefes')) {
+                    anamnesisState.specialty = 'Pulmonology Specialist AI';
+                    agentName = "🫁 Respiratory & Pulmonology Specialist AI";
+                    isCritical = true;
+                    reply = "Respiratory distress detected! Forwarded to Pulmonology agent and Dr. Sarah Vance directly notified.";
+                } else if (lower.includes('head') || lower.includes('dizzy') || lower.includes('vision') || lower.includes('blur') || lower.includes('faint') || lower.includes('baş')) {
+                    anamnesisState.specialty = 'Neurology & SANS Specialist AI';
+                    agentName = "🧠 Neurology & SANS Specialist AI";
+                    isCritical = true;
+                    reply = "Neuro-ocular (SANS) and vestibular crisis risk! Forwarded to Neurology Specialist Agent and urgent alert sent to Flight Surgeon.";
+                } else if (lower.includes('radiation') || lower.includes('fever') || lower.includes('stomach') || lower.includes('nausea') || lower.includes('vomit') || lower.includes('radyasyon')) {
+                    anamnesisState.specialty = 'Environmental Space Medicine AI';
+                    agentName = "☢️ Environmental Space Medicine AI";
+                    isCritical = true;
+                    reply = "Environmental toxicity or radiation anomaly detected! Forwarded to Space Medicine agent with immediate doctor notification.";
+                } else {
+                    reply = "Anamnesis ongoing: How long have you experienced this symptom, and does physical activity aggravate it?";
                 }
 
+                if (isCritical || lower.includes('severe') || lower.includes('unbearable') || lower.includes('emergency') || lower.includes('şiddetli')) {
+                    triggerDoctorAlert(ast.name, text);
+                }
+
+                document.getElementById('active-agent-label').innerText = agentName;
                 chatBox.innerHTML += `
                     <div class="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-100">
-                        <span class="text-[10px] text-cyan-400 block font-bold">Dr. Sarah Vance & AI Asistanı:</span>
+                        <span class="text-[10px] text-cyan-400 block font-bold">${agentName}:</span>
                         "${reply}"
                     </div>
                 `;
                 chatBox.scrollTop = chatBox.scrollHeight;
-            }, 1100);
+            }, 1200);
         }
 
-        // ==========================================
-        // DETAYLI HASTALIK TANI VE TEDAVİ VERİTABANI
-        // ==========================================
+        function triggerDoctorAlert(astName, symptom) {
+            playEmergencyAlarmSound();
+            document.getElementById('doctor-status-label').innerText = "🚨 CRITICAL CASE: SURGEON LINE CONNECTED!";
+            document.getElementById('doctor-status-label').className = "text-[10px] text-red-400 animate-pulse font-bold";
+            document.getElementById('emergency-text').innerText = `CRITICAL ALERT (${astName.toUpperCase()}): AI DETECTED ANOMALY ("${symptom}")!`;
+            document.getElementById('emergency-banner').classList.remove('hidden');
+        }
+
+        // DETAILED DIAGNOSIS & TREATMENT DATABASE
         const organDatabase = {
             brain: {
-                title: "Beyin, Sinir Sistemi & Gözler (SANS)",
-                hrpTag: "HRP: SIVI KAYMASI & İntrakraniyal Basınç",
-                hazard: "Mikroçekimde yerçekimsizliğin etkisiyle vücut sıvıları başa doğru kayar. Bu durum optik sinir kılıfında ödem, görme keskinliğinde azalma (Spaceflight-Associated Neuro-ocular Syndrome - SANS) ve kafa içi basınç artışına yol açar.",
-                treatment: "📋 Klinik Tedavi & Farmakolojik Öngörü: Asetazolamid (göz içi basınç düşürücü diüretik) profilaksisi, günlük 25 dk Alt Vücut Negatif Basınç (LBNP) uygulaması ve kontrast duyarlılık testi.",
-                metric1: "Kafa İçi Basınç: +14% (Kritik Eşik Altı)",
-                risk: "YÜKSEK DİKKAT",
-                steps: ["LBNP cihazını 25 dk çalıştırarak bacaklara sıvı çek.", "Asetazolamid göz basıncı kontrolünü yap."],
-                camTarget: { x: 0, y: 1.45, z: 2.3 }, pos3D: new THREE.Vector3(0, 1.52, 0.15)
+                title: "Brain, Nervous System & Eyes (SANS)",
+                hrpTag: "HRP: FLUID SHIFT & Intracranial Pressure",
+                hazard: "In microgravity, body fluids shift superiorly toward the head. Risk of optic nerve sheath edema and reduced visual acuity (SANS).",
+                treatment: "📋 Clinical Treatment & Pharmacological Forecast: Acetazolamide diuretic prophylaxis and daily 25-min Lower Body Negative Pressure (LBNP) session.",
+                metric1: "Intracranial Pressure: +14%",
+                risk: "HIGH ATTENTION",
+                steps: ["Operate LBNP device for 25 mins to shift fluids inferiorly.", "Verify Acetazolamide intraocular pressure control."]
             },
             heart: {
-                title: "Kalp & Kardiyovasküler Sistem (Atrofi)",
-                hrpTag: "HRP: KARDİYAK ATROFİ & Ortotostatik Hipotansiyon",
-                hazard: "Yerçekimine karşı kan pompalamayan kalp kası zamanla miyokardiyal kütle kaybeder (atrofi). Dünya'ya veya Ay'a inişte yerçekimiyle karşılaşınca ani tansiyon düşüşü ve bayılma (ortostatik intolerans) riski doğar.",
-                treatment: "📋 Klinik Tedavi & Farmakolojik Öngörü: CEVIS uzay bisikleti ile haftalık 150 dk interval kardiyo, EVA öncesi 500 ml tuzlu su (saline) yüklemesi ve kompresyon giysisi kullanımı.",
-                metric1: "Kardiyak Debi: %94 • Sol Ventrikül Hacmi: Stabil",
-                risk: "STABİL",
-                steps: ["CEVIS uzay bisikletinde 30 dk kardiyo yap.", "Tuzlu su (saline) takviyesi alarak hidrasyonu sabitle."],
-                camTarget: { x: 0, y: 0.95, z: 2.5 }, pos3D: new THREE.Vector3(0.08, 0.98, 0.22)
+                title: "Heart & Cardiovascular System (Atrophy)",
+                hrpTag: "HRP: CARDIAC ATROPHY",
+                hazard: "Without gravitational resistance, myocardial muscle mass decreases. Risk of orthostatic hypotension upon return to Earth.",
+                treatment: "📋 Clinical Treatment & Pharmacological Forecast: CEVIS cycle ergometer 150-min weekly interval cardio and 500 ml saline loading.",
+                metric1: "Cardiac Output: 94%",
+                risk: "STABLE",
+                steps: ["Perform 30-min cardio on CEVIS cycle ergometer.", "Ingest saline supplement to stabilize hydration."]
             },
             spine: {
-                title: "Omurga & Kas-İskelet Sistemi (Osteoporoz)",
-                hrpTag: "HRP: OSTEOPOROZ & Disk Hernisi",
-                hazard: "Yerçekimi olmayınca omurga diskleri su tutarak genişler (boy 3-5 cm uzar, bel fıtığı riski artar). Ayrıca yük taşımayan kemikler ayda %1-1.5 oranında kalsiyum kaybederek osteoporotik kırılganlığa yol açar.",
-                treatment: "📋 Klinik Tedavi & Farmakolojik Öngörü: ARED direnç cihazında squat/deadlift egzersizleri, bifosfonat (kemik yıkım önleyici) ilaç protokolü ve günlük 1000 mg Kalsiyum + 800 IU D Vitamini.",
-                metric1: "L4-L5 Disk Genişlemesi: +4.2mm • Kemik Kütlesi: %96",
-                risk: "ORTA DİKKAT",
-                steps: ["ARED direnç cihazında 20 dk omurga yükleme egzersizi yap.", "D Vitamini ve Kalsiyum takviyesini onayla."],
-                camTarget: { x: 0, y: 0.55, z: 2.6 }, pos3D: new THREE.Vector3(0, 0.55, 0.18)
+                title: "Spine & Musculoskeletal System (Osteoporosis)",
+                hrpTag: "HRP: OSTEOPOROSIS & Disc Herniation",
+                hazard: "In weightlessness, spinal discs decompress (height increases 3-5 cm). Bones lose 1-1.5% calcium monthly, becoming brittle.",
+                treatment: "📋 Clinical Treatment & Pharmacological Forecast: ARED resistive exercises, bisphosphonate drug protocol, and daily 1000 mg Calcium + 800 IU Vitamin D.",
+                metric1: "L4-L5 Disc Expansion: +4.2mm",
+                risk: "MODERATE ATTENTION",
+                steps: ["Perform 20-min spinal loading exercise on ARED device.", "Confirm Vitamin D and Calcium supplementation."]
             },
             immune: {
-                title: "Solunum & Bağışıklık Sistemi (İzolasyon)",
-                hrpTag: "HRP: İMMÜN SİSTEM BASKILANMASi",
-                hazard: "Kapalı kabin ortamı, sürekli HVAC sirkülasyonu ve hafif kozmik radyasyon T-hücresi aktivitesini düşürür. Latent virüslerin reaktivasyonu ve solunum yolu hassasiyeti tetiklenebilir.",
-                treatment: "📋 Klinik Tedavi & Farmakolojik Öngörü: HEPA filtre sirkülasyon denetimi, probiyotik ve çinko takviyesi, kabin içi CO2 oranını %0.3'ün altında tutma protokolü.",
-                metric1: "Kabin CO2: 0.38% • Bağışıklık Aktivitesi: %82",
-                risk: "OPTİMAL",
-                steps: ["HEPA hava filtrelerinin durumunu doğrula.", "Probiyotik ve çinko takviyesi al."],
-                camTarget: { x: 0, y: 0.85, z: 2.5 }, pos3D: new THREE.Vector3(-0.14, 0.88, 0.2)
+                title: "Respiratory & Immune System",
+                hrpTag: "HRP: IMMUNE SYSTEM SUPPRESSION",
+                hazard: "Closed cabin environment and cosmic radiation reduce T-cell activity, triggering respiratory tract sensitivity.",
+                treatment: "📋 Clinical Treatment & Pharmacological Forecast: HEPA filter air circulation audit, probiotic and zinc supplementation.",
+                metric1: "Cabin CO2: 0.38%",
+                risk: "OPTIMAL",
+                steps: ["Verify HEPA air filtration unit status.", "Take daily probiotic and zinc supplements."]
             }
         };
 
-        let currentOrgan = 'spine';
-        let currentMode = 'station';
-        let emergencyActive = false;
-
-        let scene, camera, renderer, humanGroup, holoMat, coreMat;
-        let isDragging = false, prevMouse = { x: 0, y: 0 }, targetRotationY = 0;
-        let targetCameraPos = { x: 0, y: 0.75, z: 3.4 };
-        const hotspotMeshes = {};
-
-        function init3D() {
-            const container = document.getElementById('canvas-container');
-            const width = container.clientWidth, height = container.clientHeight;
-
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-            camera.position.set(0, 0.75, 3.4);
-
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(width, height);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            container.appendChild(renderer.domElement);
-
-            scene.add(new THREE.AmbientLight(0x00f0ff, 0.6));
-            const pointLight = new THREE.PointLight(0x00f0ff, 1.5, 10);
-            pointLight.position.set(2, 3, 3);
-            scene.add(pointLight);
-
-            humanGroup = new THREE.Group();
-            holoMat = new THREE.MeshPhongMaterial({ color: 0x00f0ff, emissive: 0x005577, wireframe: true, transparent: true, opacity: 0.35 });
-            coreMat = new THREE.MeshPhongMaterial({ color: 0x00a8ff, emissive: 0x002244, transparent: true, opacity: 0.22 });
-
-            function addBodyPart(geo, x, y, z, rx = 0, rz = 0) {
-                const wire = new THREE.Mesh(geo, holoMat);
-                const solid = new THREE.Mesh(geo, coreMat);
-                wire.position.set(x, y, z); solid.position.set(x, y, z);
-                wire.rotation.set(rx, 0, rz); solid.rotation.set(rx, 0, rz);
-                humanGroup.add(wire); humanGroup.add(solid);
-            }
-
-            addBodyPart(new THREE.SphereGeometry(0.21, 18, 18), 0, 1.52, 0);
-            addBodyPart(new THREE.CylinderGeometry(0.08, 0.1, 0.16, 12), 0, 1.28, 0);
-            addBodyPart(new THREE.CylinderGeometry(0.28, 0.21, 0.55, 16), 0, 0.95, 0);
-            addBodyPart(new THREE.CylinderGeometry(0.21, 0.23, 0.42, 16), 0, 0.48, 0);
-            addBodyPart(new THREE.CylinderGeometry(0.075, 0.06, 0.48, 12), -0.37, 0.94, 0, 0, 0.15);
-            addBodyPart(new THREE.CylinderGeometry(0.06, 0.045, 0.45, 12), -0.44, 0.50, 0.05, -0.1, 0.08);
-            addBodyPart(new THREE.CylinderGeometry(0.075, 0.06, 0.48, 12), 0.37, 0.94, 0, 0, -0.15);
-            addBodyPart(new THREE.CylinderGeometry(0.06, 0.045, 0.45, 12), 0.44, 0.50, 0.05, -0.1, -0.08);
-            addBodyPart(new THREE.CylinderGeometry(0.11, 0.085, 0.55, 12), -0.13, -0.02, 0);
-            addBodyPart(new THREE.CylinderGeometry(0.08, 0.055, 0.55, 12), -0.13, -0.56, 0);
-            addBodyPart(new THREE.CylinderGeometry(0.11, 0.085, 0.55, 12), 0.13, -0.02, 0);
-            addBodyPart(new THREE.CylinderGeometry(0.08, 0.055, 0.55, 12), 0.13, -0.56, 0);
-
-            Object.keys(organDatabase).forEach(key => {
-                const org = organDatabase[key];
-                const marker = new THREE.Mesh(new THREE.SphereGeometry(0.065, 16, 16), new THREE.MeshBasicMaterial({ color: 0x00f0ff }));
-                marker.position.copy(org.pos3D);
-                marker.userData = { organKey: key };
-                humanGroup.add(marker);
-                hotspotMeshes[key] = marker;
-            });
-
-            scene.add(humanGroup);
-
-            const dom = renderer.domElement;
-            dom.addEventListener('mousedown', (e) => { isDragging = true; prevMouse = { x: e.clientX, y: e.clientY }; });
-            window.addEventListener('mouseup', () => { isDragging = false; });
-            window.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                targetRotationY += (e.clientX - prevMouse.x) * 0.01;
-                prevMouse = { x: e.clientX, y: e.clientY };
-            });
-
-            const raycaster = new THREE.Raycaster();
-            const mouse = new THREE.Vector2();
-            dom.addEventListener('click', (e) => {
-                const rect = dom.getBoundingClientRect();
-                mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-                mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-                raycaster.setFromCamera(mouse, camera);
-                const intersects = raycaster.intersectObjects(Object.values(hotspotMeshes));
-                if (intersects.length > 0) selectOrgan(intersects[0].object.userData.organKey);
-            });
-
-            createHTMLHotspots();
-            window.addEventListener('resize', onWindowResize);
-            animate();
-        }
-
-        function createHTMLHotspots() {
-            const layer = document.getElementById('hotspots-layer');
-            layer.innerHTML = '';
-            const labels = { brain: '🧠 Beyin', heart: '❤️ Kalp', spine: '🦴 Omurga', immune: '🛡️ Solunum' };
-            Object.keys(organDatabase).forEach(key => {
-                const btn = document.createElement('button');
-                btn.id = `hs-${key}`;
-                btn.className = 'hotspot-marker pointer-events-auto px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-950/90 border border-cyan-400 text-cyan-300';
-                btn.innerText = labels[key];
-                btn.onclick = () => selectOrgan(key);
-                layer.appendChild(btn);
-            });
-        }
-
-        function updateHTMLHotspotsPosition() {
-            const container = document.getElementById('canvas-container');
-            if (!container) return;
-            const width = container.clientWidth, height = container.clientHeight;
-
-            Object.keys(hotspotMeshes).forEach(key => {
-                const mesh = hotspotMeshes[key];
-                const el = document.getElementById(`hs-${key}`);
-                if (!el) return;
-                const tempV = new THREE.Vector3();
-                mesh.getWorldPosition(tempV);
-                tempV.project(camera);
-                el.style.left = `${(tempV.x * .5 + .5) * width}px`;
-                el.style.top = `${(tempV.y * -.5 + .5) * height - 18}px`;
-            });
-        }
-
-        function onWindowResize() {
-            const container = document.getElementById('canvas-container');
-            if (!container) return;
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            if (!isDragging) targetRotationY += 0.003;
-            humanGroup.rotation.y += (targetRotationY - humanGroup.rotation.y) * 0.08;
-            camera.position.x += (targetCameraPos.x - camera.position.x) * 0.08;
-            camera.position.y += (targetCameraPos.y - camera.position.y) * 0.08;
-            camera.position.z += (targetCameraPos.z - camera.position.z) * 0.08;
-            camera.lookAt(0, targetCameraPos.y - 0.1, 0);
-            renderer.render(scene, camera);
-            updateHTMLHotspotsPosition();
-        }
-
-        // ==========================================
-        // SİSTEM BAŞLATMA VE YÖNETİMİ
-        // ==========================================
         function initSystem() {
             const ast = getActiveAstronaut();
             
-            if (ast.role === 'Uçuş Doktoru' || ast.role === 'Komutan') {
+            if (ast.role === 'Flight Surgeon') {
                 document.getElementById('btn-crew-overview').classList.remove('hidden');
-                document.getElementById('header-role-badge').innerText = `YETKİLİ: ${ast.role.toUpperCase()}`;
+                document.getElementById('header-role-badge').innerText = `AUTHORIZED: FLIGHT SURGEON`;
             } else {
                 document.getElementById('btn-crew-overview').classList.add('hidden');
-                document.getElementById('header-role-badge').innerText = `GİZLİ OTURUM (${ast.role})`;
+                document.getElementById('header-role-badge').innerText = `SECURE SESSION (${ast.role})`;
             }
 
             document.getElementById('logged-user-name').innerText = ast.name;
             init3D();
+            initEKGCanvas();
             loadAstronautIntoUI(ast);
         }
 
         function loadAstronautIntoUI(ast) {
             document.getElementById('disp-name').innerText = ast.name;
             document.getElementById('disp-mission').innerText = `ARTEMIS-IV • ${ast.role.toUpperCase()}`;
-            document.getElementById('disp-height-weight').innerText = `${ast.height || 175} cm / ${ast.weight || 70} kg`;
-            document.getElementById('disp-blood-hr').innerText = `${ast.blood} / ${ast.baselineHr} bpm`;
-            document.getElementById('disp-rad-total').innerText = `${ast.radiation} mSv`;
+            document.getElementById('tel-temp').innerText = `${ast.temp || 36.6} °C`;
+            document.getElementById('tel-bp').innerText = `${ast.bp || '120/80'} mmHg`;
+            document.getElementById('tel-loc').innerText = ast.location || 'Kibo Module';
             document.getElementById('disp-condition').innerText = ast.condition;
 
-            const parts = ast.name.replace(/^(Dr\.|Kpt\.|Uzman)\s+/i, '').split(' ');
+            const parts = ast.name.replace(/^(Dr\.|Cdr\.|Spec\.|Commander)\s+/i, '').split(' ');
             document.getElementById('disp-initials').innerText = (parts[0][0] + (parts[parts.length - 1] ? parts[parts.length - 1][0] : '')).toUpperCase();
 
             document.getElementById('inp-name').value = ast.name;
             document.getElementById('inp-height').value = ast.height || 175;
             document.getElementById('inp-weight').value = ast.weight || 70;
-            document.getElementById('inp-pass').value = '';
             document.getElementById('inp-condition').value = ast.condition;
 
             document.getElementById('slider-sleep').value = ast.sleep;
@@ -1075,42 +866,30 @@
             document.getElementById('slider-water').value = ast.water;
             document.getElementById('slider-rad').value = ast.radiation;
 
-            document.getElementById('tel-bpm').innerHTML = `${ast.baselineHr + 3} <span class="text-xs font-normal">bpm</span>`;
+            document.getElementById('tel-bpm').innerHTML = `${ast.baselineHr} <span class="text-[10px] font-normal">bpm</span>`;
             recalculateHealth(false);
             selectOrgan(ast.activeOrgan || 'spine');
         }
 
         function selectOrgan(key) {
-            currentOrgan = key;
             const ast = getActiveAstronaut();
             ast.activeOrgan = key;
             saveCrewToStorage();
-
             const data = organDatabase[key];
-            targetCameraPos = { ...data.camTarget };
 
             document.getElementById('hrp-tag').innerText = data.hrpTag;
             document.getElementById('organ-title').innerText = data.title;
             document.getElementById('organ-hazard').innerText = data.hazard;
-            document.getElementById('organ-treatment-detail').innerHTML = `<span class="font-bold text-cyan-300 block mb-1">📋 Klinik Tedavi & Farmakolojik Öngörü:</span>${data.treatment}`;
+            document.getElementById('organ-treatment-detail').innerHTML = `<span class="font-bold text-cyan-300 block mb-1">📋 Clinical Treatment & Pharmacological Forecast:</span>${data.treatment}`;
             document.getElementById('organ-metric-1').innerText = data.metric1;
             document.getElementById('organ-risk').innerText = data.risk;
-            document.getElementById('organ-risk').className = "text-amber-400 font-bold";
-
-            document.getElementById('organ-steps').innerHTML = data.steps.map((s, i) => `
-                <li class="p-2 rounded-lg bg-slate-900/90 border-l-2 border-cyan-400">${i + 1}. ${s}</li>
-            `).join('');
-            document.getElementById('btn-apply-protocol').innerText = "✓ PROTOKOLÜ UYGULADIM (ONAYLA)";
+            document.getElementById('organ-steps').innerHTML = data.steps.map((s, i) => `<li class="p-2 rounded-lg bg-slate-900/90 border-l-2 border-cyan-400">${i + 1}. ${s}</li>`).join('');
         }
-
-        function resetCamera() { targetCameraPos = { x: 0, y: 0.75, z: 3.4 }; }
 
         function applyProtocol() {
             const ast = getActiveAstronaut();
-            document.getElementById('organ-risk').innerText = "MÜDAHALE EDİLDİ & STABİL ✓";
+            document.getElementById('organ-risk').innerText = "INTERVENED & STABLE ✓";
             document.getElementById('organ-risk').className = "text-emerald-400 font-bold";
-            document.getElementById('btn-apply-protocol').innerText = "🌟 PROTOKOL BAŞARIYLA UYGULANDI";
-            
             ast.sleep = Math.min(9, ast.sleep + 0.5);
             saveCrewToStorage();
             recalculateHealth(true);
@@ -1126,19 +905,7 @@
             ast.name = document.getElementById('inp-name').value.trim() || ast.name;
             ast.height = parseInt(document.getElementById('inp-height').value) || ast.height;
             ast.weight = parseInt(document.getElementById('inp-weight').value) || ast.weight;
-            
-            const newPass = document.getElementById('inp-pass').value.trim();
-            if (newPass.length > 0) {
-                if (newPass.length < 4) {
-                    alert('Güvenlik Uyarısı: Şifre en az 4 karakter olmalıdır!');
-                    return;
-                }
-                ast.pass = newPass;
-                alert('✓ Kişisel şifreniz başarıyla güncellendi!');
-            }
-
-            ast.condition = `[Güncellendi] ${document.getElementById('inp-condition').value.trim()}`;
-
+            ast.condition = `[Updated] ${document.getElementById('inp-condition').value.trim()}`;
             saveCrewToStorage();
             loadAstronautIntoUI(ast);
             toggleEditProfile();
@@ -1150,115 +917,157 @@
             ast.stress = parseInt(document.getElementById('slider-stress').value);
             ast.water = parseFloat(document.getElementById('slider-water').value);
             ast.radiation = parseFloat(document.getElementById('slider-rad').value);
-
             if (shouldSave) saveCrewToStorage();
 
-            document.getElementById('val-sleep').innerText = `${ast.sleep} Saat`;
+            document.getElementById('val-sleep').innerText = `${ast.sleep} Hours`;
             document.getElementById('val-stress').innerText = `${ast.stress} / 10`;
-            document.getElementById('val-water').innerText = `${ast.water} Litre`;
+            document.getElementById('val-water').innerText = `${ast.water} Liters`;
             document.getElementById('val-rad').innerText = `${ast.radiation} mSv`;
-            document.getElementById('disp-rad-total').innerText = `${ast.radiation} mSv`;
 
-            const metrics = computeAstronautMetrics(ast);
-            document.getElementById('battery-percent').innerText = `${metrics.score}%`;
-            document.getElementById('battery-bar').style.width = `${metrics.score}%`;
-
-            let predText = "Hücresel adaptasyon stabil. Öngörülen risk yok.";
-            if (ast.radiation > 70) predText = "⚠️ Yüksek radyasyon! Hücre hasarı ve DNA mutasyon riski öngörülüyor.";
-            else if (ast.sleep < 6) predText = "⚠️ Uyku yetersizliği saptandı. Baş ağrısı ve bilişsel yorgunluk öngörülüyor.";
-            document.getElementById('ai-prediction-text').innerText = predText;
+            let score = 50 + (ast.sleep / 8) * 25 - (ast.stress - 1) * 2.5;
+            score = Math.max(15, Math.min(100, Math.round(score)));
+            document.getElementById('battery-percent').innerText = `${score}%`;
+            document.getElementById('battery-bar').style.width = `${score}%`;
         }
-
-        function computeAstronautMetrics(ast) {
-            let score = 50;
-            score += Math.min(25, (ast.sleep / 8) * 25);
-            score += Math.min(15, (ast.water / 2.5) * 15);
-            score -= (ast.stress - 1) * 2.5;
-            if (ast.radiation > 100) score -= 15;
-            else if (ast.radiation > 70) score -= 7;
-            score = Math.max(12, Math.min(100, Math.round(score)));
-
-            let status = 'optimal', statusLabel = 'OPTİMAL', dotColor = 'bg-emerald-400';
-            if (score < 50 || ast.radiation > 130) {
-                status = 'critical'; statusLabel = 'KRİTİK'; dotColor = 'bg-red-500';
-            } else if (score < 75 || ast.radiation > 70) {
-                status = 'attention'; statusLabel = 'DİKKAT'; dotColor = 'bg-amber-400';
-            }
-            return { score, status, statusLabel, dotColor };
-        }
-
-        function openEvaProtocolsModal() { document.getElementById('eva-protocols-modal').classList.remove('hidden'); }
-        function closeEvaProtocolsModal() { document.getElementById('eva-protocols-modal').classList.add('hidden'); }
 
         function openCrewOverviewModal() {
             const ast = getActiveAstronaut();
-            if (ast.role !== 'Uçuş Doktoru' && ast.role !== 'Komutan') {
-                alert('Erişim Reddedildi: Bu panele yalnızca Uçuş Doktoru ve Komutan yetki şifresiyle erişebilir.');
+            if (ast.role !== 'Flight Surgeon') {
+                alert('Access Denied: Crew health telemetries can only be viewed by the Flight Surgeon.');
                 return;
             }
-
             const tbody = document.getElementById('crew-comparison-tbody');
-            tbody.innerHTML = crewList.map(member => {
-                const m = computeAstronautMetrics(member);
-                return `
-                    <tr class="hover:bg-slate-900/80 transition">
-                        <td class="p-3 font-bold text-white">${member.name}<br><span class="text-[10px] text-cyan-400">${member.role}</span></td>
-                        <td class="p-3 text-slate-300">${member.height || 175} cm / ${member.weight || 70} kg</td>
-                        <td class="p-3 font-bold text-white">${m.score}%</td>
-                        <td class="p-3 text-amber-300">${member.radiation} mSv</td>
-                        <td class="p-3"><span class="px-2 py-0.5 rounded border text-[10px] font-bold ${m.dotColor} text-slate-950">${m.statusLabel}</span></td>
-                    </tr>
-                `;
-            }).join('');
+            tbody.innerHTML = crewList.map(m => `
+                <tr class="hover:bg-slate-900/80 transition">
+                    <td class="p-3 font-bold text-white">${m.name}<br><span class="text-[10px] text-cyan-400">${m.role}</span></td>
+                    <td class="p-3 text-slate-300">${m.temp || 36.6} °C / ${m.bp || '120/80'}</td>
+                    <td class="p-3 font-bold text-white">88%</td>
+                    <td class="p-3 text-amber-300">${m.radiation} mSv</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded border text-[10px] font-bold bg-emerald-400 text-slate-950">OPTIMAL</span></td>
+                </tr>
+            `).join('');
             document.getElementById('crew-overview-modal').classList.remove('hidden');
         }
         function closeCrewOverviewModal() { document.getElementById('crew-overview-modal').classList.add('hidden'); }
-
-        function setMode(mode) {
-            currentMode = mode;
-            const btnStation = document.getElementById('btn-station-mode');
-            const btnEva = document.getElementById('btn-eva-mode');
-            const workspace = document.getElementById('main-workspace');
-            const leftPanel = document.getElementById('left-panel');
-
-            if (mode === 'eva') {
-                btnEva.className = "px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-amber-500 text-slate-950";
-                btnStation.className = "px-3 py-1.5 rounded-lg text-xs font-mono font-semibold text-cyan-400";
-                leftPanel.classList.add('hidden');
-                workspace.classList.add('eva-wrist-frame', 'rounded-3xl');
-                document.getElementById('center-panel').classList.replace('lg:col-span-5', 'lg:col-span-7');
-                document.getElementById('right-panel').classList.replace('lg:col-span-3', 'lg:col-span-5');
-            } else {
-                btnStation.className = "px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-cyan-500 text-slate-950";
-                btnEva.className = "px-3 py-1.5 rounded-lg text-xs font-mono font-semibold text-amber-400";
-                leftPanel.classList.remove('hidden');
-                workspace.classList.remove('eva-wrist-frame', 'rounded-3xl');
-                document.getElementById('center-panel').classList.replace('lg:col-span-7', 'lg:col-span-5');
-                document.getElementById('right-panel').classList.replace('lg:col-span-5', 'lg:col-span-3');
-            }
-            setTimeout(onWindowResize, 50);
-        }
+        function openEvaProtocolsModal() { document.getElementById('eva-protocols-modal').classList.remove('hidden'); }
+        function closeEvaProtocolsModal() { document.getElementById('eva-protocols-modal').classList.add('hidden'); }
 
         function triggerEmergency() {
-            emergencyActive = true;
             playEmergencyAlarmSound();
             const ast = getActiveAstronaut();
-            document.getElementById('emergency-text').innerText = `KRİTİK UYARI (${ast.name.toUpperCase()}): GÜNEŞ PATLAMASI RADYASYONU!`;
+            document.getElementById('emergency-text').innerText = `CRITICAL ALERT (${ast.name.toUpperCase()}): EMERGENCY SIGNAL TRANSMITTED TO SURGEON!`;
             document.getElementById('emergency-banner').classList.remove('hidden');
-            document.getElementById('telemetry-card').classList.add('glass-panel-danger');
-            document.getElementById('tel-bpm').innerHTML = `${ast.baselineHr + 76} <span class="text-xs font-normal text-red-300">bpm!</span>`;
-            document.getElementById('tel-bpm').className = "text-lg font-bold text-red-400 animate-pulse";
-            selectOrgan('brain');
+        }
+        function resolveEmergency() {
+            stopEmergencyAlarmSound();
+            document.getElementById('emergency-banner').classList.add('hidden');
         }
 
-        function resolveEmergency() {
-            emergencyActive = false;
-            stopEmergencyAlarmSound();
-            const ast = getActiveAstronaut();
-            document.getElementById('emergency-banner').classList.add('hidden');
-            document.getElementById('telemetry-card').classList.remove('glass-panel-danger');
-            document.getElementById('tel-bpm').className = "text-lg font-bold text-emerald-400";
-            selectOrgan(ast.activeOrgan || 'spine');
+        // ==========================================
+        // LIVE ECG WAVEFORM ANIMATION
+        // ==========================================
+        function initEKGCanvas() {
+            const canvas = document.getElementById('ekg-canvas');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.parentElement.clientWidth || 280;
+            canvas.height = 70;
+
+            let xPos = 0;
+            let lastY = canvas.height / 2;
+
+            function drawEKG() {
+                ctx.fillStyle = 'rgba(4, 8, 18, 0.15)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.strokeStyle = '#00F0FF';
+                ctx.lineWidth = 1.8;
+                ctx.beginPath();
+                ctx.moveTo(xPos, lastY);
+
+                xPos += 2;
+                if (xPos > canvas.width) {
+                    xPos = 0;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+
+                let y = canvas.height / 2;
+                const mod = xPos % 60;
+                if (mod > 25 && mod < 32) {
+                    y += (mod === 28) ? -32 : ((mod === 29) ? 28 : -8);
+                } else {
+                    y += (Math.random() - 0.5) * 3;
+                }
+
+                ctx.lineTo(xPos, y);
+                ctx.stroke();
+                lastY = y;
+
+                setTimeout(() => requestAnimationFrame(drawEKG), 35);
+            }
+            drawEKG();
+        }
+
+        // ==========================================
+        // 3D HOLOGRAPHIC HUMAN MODEL
+        // ==========================================
+        let scene, camera, renderer, humanGroup;
+        function init3D() {
+            const container = document.getElementById('canvas-container');
+            if(container.children.length > 1) return;
+            
+            const width = container.clientWidth || 380;
+            const height = container.clientHeight || 380;
+
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+            camera.position.set(0, 0.75, 3.4);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            scene.add(new THREE.AmbientLight(0x00f0ff, 0.9));
+            const pointLight = new THREE.PointLight(0x00f0ff, 2.5, 10);
+            pointLight.position.set(2, 3, 3);
+            scene.add(pointLight);
+
+            humanGroup = new THREE.Group();
+            const mat = new THREE.MeshPhongMaterial({ color: 0x00f0ff, emissive: 0x003344, wireframe: true, transparent: true, opacity: 0.55 });
+            
+            const head = new THREE.Mesh(new THREE.SphereGeometry(0.2, 16, 16), mat); head.position.set(0, 1.5, 0);
+            const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.16, 0.65, 12), mat); torso.position.set(0, 0.9, 0);
+            const leftArm = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.05, 0.55, 8), mat); leftArm.position.set(-0.35, 0.95, 0); leftArm.rotation.z = 0.2;
+            const rightArm = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.05, 0.55, 8), mat); rightArm.position.set(0.35, 0.95, 0); rightArm.rotation.z = -0.2;
+            const leftLeg = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.06, 0.7, 8), mat); leftLeg.position.set(-0.14, 0.15, 0);
+            const rightLeg = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.06, 0.7, 8), mat); rightLeg.position.set(0.14, 0.15, 0);
+
+            humanGroup.add(head); humanGroup.add(torso); humanGroup.add(leftArm); humanGroup.add(rightArm); humanGroup.add(leftLeg); humanGroup.add(rightLeg);
+            scene.add(humanGroup);
+
+            let isDragging = false, prevX = 0;
+            const dom = renderer.domElement;
+            dom.addEventListener('mousedown', (e) => { isDragging = true; prevX = e.clientX; });
+            window.addEventListener('mouseup', () => { isDragging = false; });
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                humanGroup.rotation.y += (e.clientX - prevX) * 0.01;
+                prevX = e.clientX;
+            });
+
+            animate3D();
+        }
+
+        function animate3D() {
+            requestAnimationFrame(animate3D);
+            if(humanGroup && !window.isDraggingModel) humanGroup.rotation.y += 0.005;
+            if(renderer && scene && camera) renderer.render(scene, camera);
+        }
+
+        function resetCamera() {
+            if(camera) camera.position.set(0, 0.75, 3.4);
+            if(humanGroup) humanGroup.rotation.y = 0;
         }
 
         window.onload = function() {
